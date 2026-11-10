@@ -1,0 +1,25 @@
+# Ambiente Python
+.venv/
+__pycache__/
+*.pyc
+
+# Segredos: a chave da OpenAI fica no .env, que nunca deve ir para o repositório.
+# O .env.example é o modelo que fica versionado.
+.env
+
+# Resultados das execuções. Cada rodada cria uma pasta nova aqui, com vídeo anotado e frames,
+# e isso cresce rápido demais para versionar.
+outputs/
+
+# Modelos locais baixados pelo README. A pasta fica no repositório (vazia) para o curl ter onde salvar.
+models/*
+!models/.gitkeep
+
+# WAV temporário que o pipeline cria ao converter o áudio e apaga ao terminar.
+*.tmp.wav
+
+# Arquivos de editor e do sistema operacional
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

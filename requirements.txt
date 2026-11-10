@@ -1,0 +1,8 @@
+openai==3.42.0
+python-dotenv==1.2.4
+numpy==2.4.6
+opencv-python==5.0.0.93
+torch==2.15.0
+torchvision==0.29.2
+ultralytics==8.4.197
+mediapipe==1.2.0
