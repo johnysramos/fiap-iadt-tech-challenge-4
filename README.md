@@ -6,6 +6,8 @@ Cada execução cuida de um arquivo só, do começo ao fim, e deixa tudo o que e
 
 ## O que ele faz
 
+**Link do vídeo de apresentação:** https://www.youtube.com/watch?v=iRxUCfHGCE8
+
 **Com um vídeo**, o YOLOv8 localiza pessoas e objetos em cena e o MediaPipe Pose, que faz o papel do OpenPose citado no enunciado, estima a postura da pessoa frame a frame. A partir da postura, quatro regras detectam queda, imobilidade prolongada, assimetria postural e pessoa fora de quadro. Cada evento ganha um frame-chave, que é enviado à OpenAI para ela confirmar se a cena mostra mesmo o que a regra apontou. O resultado inclui o **vídeo anotado**, com as caixas e o esqueleto desenhados.
 
 **Com um áudio**, a OpenAI transcreve a gravação e depois classifica o texto: termos críticos, sentimento, indícios de fadiga, dispneia ou fala arrastada e um nível de risco.
