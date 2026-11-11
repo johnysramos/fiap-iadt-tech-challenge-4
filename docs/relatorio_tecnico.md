@@ -3,19 +3,9 @@
 **Projeto:** apolo, análise de áudio e vídeo de pacientes com alerta à equipe médica
 **Data:** novembro de 2026
 
-## 1. Objetivo e escolhas
+## 1. Objetivo
 
 O enunciado pede um sistema hospitalar capaz de monitorar pacientes a partir de dados multimodais: vídeos clínicos (com modelos como OpenPose e YOLOv8), gravações de voz (transcrição, termos críticos e sentimento em um serviço gerenciado de nuvem) e alertas automáticos.
-
-Escolhas:
-
-| Tema | Decisão | Por quê |
-|---|---|---|
-| Entradas | Somente **um arquivo de áudio ou de vídeo** por execução | Preferimos um fluxo bem resolvido de ponta a ponta a vários fluxos pela metade. |
-| Nuvem | **OpenAI** para transcrição, classificação do texto, visão e redação do relatório | O enunciado fala em "serviços gerenciados em nuvem, **como** Azure Cognitive Services". A OpenAI oferece o equivalente de cada serviço. |
-| Postura | **MediaPipe Pose** no lugar do OpenPose | O OpenPose exige compilação em C++ com CUDA. O MediaPipe Pose instala com `pip`, roda em CPU e devolve 33 pontos do corpo. |
-| Áudio | OpenAI: transcreve e classifica o texto | Sem processamento local do áudio. O arquivo vai direto para a API, como está. |
-| Interface | Um comando só: `python -m apolo <arquivo>` | Cada execução é independente e cria a própria pasta de saída. |
 
 ## 2. Fluxo
 
@@ -51,15 +41,6 @@ arquivo (.mp4/.mov/.avi/.mkv/.webm  ou  .wav/.mp3/.m4a/.flac/.ogg)
 | Áudio | Transcrever a fala | **OpenAI gpt-4o-transcribe** | Nuvem |
 | Áudio | Termos críticos, sentimento, indícios, risco | **OpenAI gpt-5.4-mini** (resposta JSON validada com pydantic) | Nuvem |
 | Relatório | Escrever a conclusão | **OpenAI gpt-5.4-mini** | Nuvem |
-
-Correspondência com os serviços citados no enunciado:
-
-| Enunciado | Implementação |
-|---|---|
-| Azure Speech to Text | OpenAI `audio/transcriptions` (gpt-4o-transcribe) |
-| Azure Text Analytics (termos-chave, sentimento) | OpenAI Responses API com resposta estruturada |
-| OpenPose | MediaPipe Pose Landmarker |
-| YOLOv8 | YOLOv8n (ultralytics) |
 
 ### 3.1 Regras de evento no vídeo
 
@@ -132,18 +113,7 @@ Transcrição obtida: "Doutor, desde ontem à noite eu estou com muita falta de 
 
 Os termos e indícios chegaram aos tetos de 32 e 36 pontos, que somados ao sentimento negativo e ao risco alto dão 98.
 
-## 5. Fluxo do alerta à equipe médica
-
-1. `scoring.score` calcula o risco e a severidade.
-2. Se a severidade for ATENÇÃO ou CRÍTICO, o alerta é impresso no console com a severidade, o risco, o nome do arquivo e a lista de evidências com os instantes de tempo.
-3. O `report.md` traz a conclusão em linguagem natural com a ação recomendada e, no caso de vídeo, o `annotated.mp4` e os frames-chave para uma revisão rápida.
-
-## 6. Limitações
-
-- **Câmera fixa e uma pessoa principal.** Vídeos editados, com cortes e close-ups, geram eventos de "pessoa fora de quadro".
-- **Não determinismo do modelo de linguagem.** Termos críticos, sentimento e confirmação visual variam um pouco entre execuções.
-
-## 7. Como reproduzir
+## 5. Como reproduzir
 
 ```powershell
 py -3.11 -m venv .venv

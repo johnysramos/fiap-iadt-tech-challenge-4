@@ -1,4 +1,4 @@
-# apolo — Tech Challenge Fase 4 (FIAP IADT)
+# apolo - Tech Challenge Fase 4 (FIAP IADT)
 
 O apolo recebe **um arquivo de áudio ou de vídeo** de um paciente, analisa o conteúdo, procura sinais de risco e escreve um relatório. Quando o risco é alto, ele também emite um alerta para a equipe médica.
 
