@@ -7,9 +7,10 @@ __pycache__/
 # O .env.example é o modelo que fica versionado.
 .env
 
-# Resultados das execuções. Cada rodada cria uma pasta nova aqui, com vídeo anotado e frames,
-# e isso cresce rápido demais para versionar.
-outputs/
+# Resultados das execuções. Só as duas execuções usadas no relatório técnico ficam versionadas.
+outputs/*
+!outputs/2026-11-09_194538_sintetico_paciente_dispneia/
+!outputs/2026-11-09_194554_urfd_fall-01/
 
 # Modelos locais baixados pelo README. A pasta fica no repositório (vazia) para o curl ter onde salvar.
 models/*
